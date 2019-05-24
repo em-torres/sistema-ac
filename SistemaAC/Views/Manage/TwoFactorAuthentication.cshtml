@@ -1,6 +1,9 @@
+@using AuStr = SistemaAC.UserStrings.AuthStrings
+@using GeStr = SistemaAC.UserStrings.GeneralStrings
+
 @model TwoFactorAuthenticationViewModel
 @{
-    ViewData["Title"] = "Two-factor authentication";
+    ViewData["Title"] = GeStr.GenTwoFactor;
     ViewData.AddActivePage(ManageNavPages.TwoFactorAuthentication);
 }
 
@@ -10,38 +13,38 @@
     if (Model.RecoveryCodesLeft == 0)
     {
         <div class="alert alert-danger">
-            <strong>You have no recovery codes left.</strong>
-            <p>You must <a asp-action="GenerateRecoveryCodes">generate a new set of recovery codes</a> before you can log in with a recovery code.</p>
+            <strong>@AuStr.MaTwoNoCodeLeft</strong>
+            <p>Debes <a asp-action="GenerateRecoveryCodes">@AuStr.MaTwoGenNewSet</a> antes de iniciar sesión con un código de recuperación.</p>
         </div>
     }
     else if (Model.RecoveryCodesLeft == 1)
     {
         <div class="alert alert-danger">
-            <strong>You have 1 recovery code left.</strong>
-            <p>You can <a asp-action="GenerateRecoveryCodes">generate a new set of recovery codes</a>.</p>
+            <strong>Solo queda 1 código de recuperación!!!</strong>
+            <p>Puedes <a asp-action="GenerateRecoveryCodes">@AuStr.MaTwoGenNewSet</a>.</p>
         </div>
     }
     else if (Model.RecoveryCodesLeft <= 3)
     {
         <div class="alert alert-warning">
-            <strong>You have @Model.RecoveryCodesLeft recovery codes left.</strong>
-            <p>You should <a asp-action="GenerateRecoveryCodes">generate a new set of recovery codes</a>.</p>
+            <strong>Te quedan @Model.RecoveryCodesLeft códigos de recuperación.</strong>
+            <p>Deberías <a asp-action="GenerateRecoveryCodes">@AuStr.MaTwoGenNewSet</a>.</p>
         </div>
     }
 
-    <a asp-action="Disable2faWarning" class="btn btn-default">Disable 2FA</a>
-    <a asp-action="GenerateRecoveryCodesWarning" class="btn btn-default">Reset recovery codes</a>
+    <a asp-action="Disable2faWarning" class="btn btn-default">@GeStr.GenDis2fa</a>
+    <a asp-action="GenerateRecoveryCodesWarning" class="btn btn-default">@GeStr.GenResRecov</a>
 }
 
-<h5>Authenticator app</h5>
+<h5>@AuStr.MaTwoApp</h5>
 @if (!Model.HasAuthenticator)
 {
-    <a asp-action="EnableAuthenticator" class="btn btn-default">Add authenticator app</a>
+    <a asp-action="EnableAuthenticator" class="btn btn-default">@GeStr.GenAddAuth</a>
 }
 else
 {
-    <a asp-action="EnableAuthenticator" class="btn btn-default">Configure authenticator app</a>
-    <a asp-action="ResetAuthenticatorWarning" class="btn btn-default">Reset authenticator key</a>
+    <a asp-action="EnableAuthenticator" class="btn btn-default">@GeStr.GenConAuth</a>
+    <a asp-action="ResetAuthenticatorWarning" class="btn btn-default">@GeStr.GenResAuth</a>
 }
 
 @section Scripts {

@@ -1,6 +1,9 @@
-﻿@model IndexViewModel
+﻿@using AuStr = SistemaAC.UserStrings.AuthStrings
+@using GeStr = SistemaAC.UserStrings.GeneralStrings
+
+@model IndexViewModel
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = AuStr.MaIndTitle;
     ViewData.AddActivePage(ManageNavPages.Index);
 }
 
@@ -11,11 +14,11 @@
         <form method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Username"></label>
+                <label asp-for="Username">@GeStr.GenUsername</label>
                 <input asp-for="Username" class="form-control" disabled />
             </div>
             <div class="form-group">
-                <label asp-for="Email"></label>
+                <label asp-for="Email">@GeStr.GenEmail</label>
                 @if (Model.IsEmailConfirmed)
                 {
                     <div class="input-group">
@@ -26,16 +29,16 @@
                 else
                 {
                     <input asp-for="Email" class="form-control" />
-                    <button asp-action="SendVerificationEmail" class="btn btn-link">Send verification email</button>
+                    <button asp-action="SendVerificationEmail" class="btn btn-link">@AuStr.MaIndSendVer</button>
                 }
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PhoneNumber"></label>
+                <label asp-for="PhoneNumber">@GeStr.GenPhone</label>
                 <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-default">Save</button>
+            <button type="submit" class="btn btn-default">@GeStr.GenSave</button>
         </form>
     </div>
 </div>
